@@ -42,8 +42,9 @@ public class MainController {
         return "result";
     }
 
-    @GetMapping("/showdatabase")
-    public BookRepo initDatabase(){
+
+    @GetMapping("/add6books")
+    public String initDatabase(){
         Iterable<Book> booklist;
         ArrayList<Book> toadd = new ArrayList<>();
 
@@ -78,16 +79,18 @@ public class MainController {
 
         bookRepo.save(booklist);
 
-        return bookRepo;
-
+        return "findallbooks";
 
     }
 
-    @GetMapping("/showbook")
-    public String showAllBooks() {
 
-        Iterable<Book> booklist = bookRepo.findAll();
-        return booklist.toString();
+    @GetMapping("/showallbooks")
+    public String showAllBooks(Model model){
+
+        Iterable<Book> allbook = bookRepo.findAll();
+        model.addAttribute("allBook", allbook);
+        return "showallbooks";
+        //return "findallbooks";
+
     }
-
 }
